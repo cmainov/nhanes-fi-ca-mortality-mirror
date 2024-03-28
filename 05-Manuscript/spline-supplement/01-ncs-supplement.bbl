@@ -1,0 +1,539 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{zou2005regularization}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ZH}{%
+         family={Zou},
+         familyi={Z\bibinitperiod},
+         given={Hui},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Oxford University Press}%
+    }
+    \strng{namehash}{ZHHT1}
+    \strng{fullhash}{ZHHT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{2}
+    \field{pages}{301\bibrangedash 320}
+    \field{title}{Regularization and variable selection via the elastic net}
+    \field{volume}{67}
+    \field{journaltitle}{Journal of the Royal Statistical Society Series B:
+  Statistical Methodology}
+    \field{year}{2005}
+  \endentry
+
+  \entry{jin2009elastic}{article}{}
+    \name{author}{3}{}{%
+      {{hash=JB}{%
+         family={Jin},
+         familyi={J\bibinitperiod},
+         given={Bangti},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=LDA}{%
+         family={Lorenz},
+         familyi={L\bibinitperiod},
+         given={Dirk\bibnamedelima A},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Schiffler},
+         familyi={S\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IOP Publishing}%
+    }
+    \strng{namehash}{JB+1}
+    \strng{fullhash}{JBLDASS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{11}
+    \field{pages}{115022}
+    \field{title}{Elastic-net regularization: error estimates and active set
+  methods}
+    \field{volume}{25}
+    \field{journaltitle}{Inverse Problems}
+    \field{year}{2009}
+  \endentry
+
+  \entry{willett1997adjustment}{article}{}
+    \name{author}{3}{}{%
+      {{hash=WWC}{%
+         family={Willett},
+         familyi={W\bibinitperiod},
+         given={Walter\bibnamedelima C},
+         giveni={W\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=HGR}{%
+         family={Howe},
+         familyi={H\bibinitperiod},
+         given={Geoffrey\bibnamedelima R},
+         giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=KLH}{%
+         family={Kushi},
+         familyi={K\bibinitperiod},
+         given={Lawrence\bibnamedelima H},
+         giveni={L\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{WWC+1}
+    \strng{fullhash}{WWCHGRKLH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{pages}{S1220\bibrangedash S1228}
+    \field{title}{Adjustment for total energy intake in epidemiologic studies}
+    \field{volume}{65}
+    \field{journaltitle}{The American journal of clinical nutrition}
+    \field{year}{1997}
+  \endentry
+
+  \entry{greenland_dose-response_1995}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GS}{%
+         family={Greenland},
+         familyi={G\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {eng}%
+    }
+    \keyw{Humans, Risk Assessment, Logistic Models, Incidence, Confidence
+  Intervals, Epidemiologic Methods, HIV Infections, Models, Statistical,
+  Biometry, Los Angeles}
+    \strng{namehash}{GS1}
+    \strng{fullhash}{GS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    Standard categorical analysis is based on an unrealistic model for
+  dose-response and trends and does not make efficient use of within-category
+  information. This paper describes two classes of simple alternatives that can
+  be implemented with any regression software: fractional polynomial regression
+  and spline regression. These methods are illustrated in a problem of
+  estimating historical trends in human immunodeficiency virus incidence.
+  Fractional polynomial and spline regression are especially valuable when
+  important nonlinearities are anticipated and software for more general
+  nonparametric regression approaches is not available.%
+    }
+    \verb{doi}
+    \verb 10.1097/00001648-199507000-00005
+    \endverb
+    \field{issn}{1044-3983}
+    \field{number}{4}
+    \field{pages}{356\bibrangedash 365}
+    \field{shorttitle}{Dose-response and trend analysis in epidemiology}
+    \field{title}{Dose-response and trend analysis in epidemiology:
+  alternatives to categorical analysis}
+    \field{volume}{6}
+    \field{journaltitle}{Epidemiology (Cambridge, Mass.)}
+    \field{month}{07}
+    \field{year}{1995}
+  \endentry
+
+  \entry{witte_nested_1997}{article}{}
+    \name{author}{2}{}{%
+      {{hash=WJS}{%
+         family={Witte},
+         familyi={W\bibinitperiod},
+         given={John\bibnamedelima S.},
+         giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=GS}{%
+         family={Greenland},
+         familyi={G\bibinitperiod},
+         given={Sander},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{WJSGS1}
+    \strng{fullhash}{WJSGS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1016/S1047-2797(96)00159-7
+    \endverb
+    \field{issn}{10472797}
+    \field{number}{3}
+    \field{pages}{188\bibrangedash 193}
+    \field{title}{A nested approach to evaluating dose-response and trend}
+    \verb{url}
+    \verb https://linkinghub.elsevier.com/retrieve/pii/S1047279796001597
+    \endverb
+    \field{volume}{7}
+    \field{journaltitle}{Annals of Epidemiology}
+    \field{month}{04}
+    \field{year}{1997}
+    \field{urlday}{23}
+    \field{urlmonth}{11}
+    \field{urlyear}{2022}
+  \endentry
+
+  \entry{steenland_practical_2004}{article}{}
+    \name{author}{2}{}{%
+      {{hash=SK}{%
+         family={Steenland},
+         familyi={S\bibinitperiod},
+         given={Kyle},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=DJA}{%
+         family={Deddens},
+         familyi={D\bibinitperiod},
+         given={James\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SKDJA1}
+    \strng{fullhash}{SKDJA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Dose-response modeling in occupational epidemiology is usually motivated by
+  questions of causal inference (eg, is there a monotonic increase of risk with
+  increasing exposure?) or risk assessment (eg, how much excess risk exists at
+  any given level of exposure?). We focus on several approaches to
+  dose-response in occupational cohort studies. Categorical analyses are useful
+  for detecting the shape of dose-response. However, they depend on the number
+  and location of cutpoints and result in step functions rather than smooth
+  curves. Restricted cubic splines and penalized splines are useful parametric
+  techniques that provide smooth curves. Although splines can complement
+  categorical analyses, they do not provide interpretable parameters. The
+  shapes of these curves will depend on the degree of "smoothing" chosen by the
+  analyst. We recommend combining categorical analyses and some type of
+  smoother, with the goal of developing a reasonably simple parametric model. A
+  simple parametric model should serve as the goal of dose-response analyses
+  because (1) most "true" exposure response curves in nature may be reasonably
+  simple, (2) a simple parametric model is easily communicated and used by
+  others, and (3) a simple parametric model is the best tool for risk assessors
+  and regulators seeking to estimate individual excess risks per unit of
+  exposure. We discuss these issues and others, including whether the best
+  model is always the one that fits the best, reasons to prefer a linear model
+  for risk in the low-exposure region when conducting risk assessment, and
+  common methods of calculating excess lifetime risk at a given exposure from
+  epidemiologic results (eg, from rate ratios). Points are illustrated using
+  data from a study of dioxin and cancer.%
+    }
+    \field{issn}{1044-3983}
+    \field{note}{Publisher: Lippincott Williams \& Wilkins}
+    \field{number}{1}
+    \field{pages}{63\bibrangedash 70}
+    \field{title}{A {Practical} {Guide} to {Dose}-{Response} {Analyses} and
+  {Risk} {Assessment} in {Occupational} {Epidemiology}}
+    \verb{url}
+    \verb https://www.jstor.org/stable/20485841
+    \endverb
+    \field{volume}{15}
+    \verb{file}
+    \verb JSTOR Full Text PDF:/Users/Chris/Zotero/storage/HQ65DA4K/Steenland an
+    \verb d Deddens - 2004 - A Practical Guide to Dose-Response Analyses and Ri
+    \verb .pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Epidemiology}
+    \field{year}{2004}
+    \field{urlday}{10}
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{hastie_elements_2009}{book}{}
+    \name{author}{3}{}{%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Tibshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FJ}{%
+         family={Friedman},
+         familyi={F\bibinitperiod},
+         given={Jerome},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer New York}%
+    }
+    \strng{namehash}{HT+1}
+    \strng{fullhash}{HTTRFJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/978-0-387-84858-7
+    \endverb
+    \field{isbn}{978-0-387-84857-0 978-0-387-84858-7}
+    \field{series}{Springer {Series} in {Statistics}}
+    \field{title}{The {Elements} of {Statistical} {Learning}}
+    \verb{url}
+    \verb http://link.springer.com/10.1007/978-0-387-84858-7
+    \endverb
+    \field{version}{2}
+    \list{location}{1}{%
+      {New York, NY}%
+    }
+    \verb{file}
+    \verb Full Text:/Users/Chris/Zotero/storage/JI2T4SV2/Hastie et al. - 2009 -
+    \verb  The Elements of Statistical Learning.pdf:application/pdf
+    \endverb
+    \field{year}{2009}
+    \field{urlday}{29}
+    \field{urlmonth}{11}
+    \field{urlyear}{2022}
+  \endentry
+
+  \entry{james_introduction_2013}{book}{}
+    \name{author}{4}{}{%
+      {{hash=JG}{%
+         family={James},
+         familyi={J\bibinitperiod},
+         given={Gareth},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=WD}{%
+         family={Witten},
+         familyi={W\bibinitperiod},
+         given={Daniela},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Tibshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer New York}%
+    }
+    \strng{namehash}{JG+1}
+    \strng{fullhash}{JGWDHTTR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/978-1-4614-7138-7
+    \endverb
+    \field{isbn}{978-1-4614-7137-0 978-1-4614-7138-7}
+    \field{series}{Springer {Texts} in {Statistics}}
+    \field{title}{An {Introduction} to {Statistical} {Learning}}
+    \verb{url}
+    \verb http://link.springer.com/10.1007/978-1-4614-7138-7
+    \endverb
+    \field{volume}{103}
+    \list{location}{1}{%
+      {New York, NY}%
+    }
+    \verb{file}
+    \verb Submitted Version:/Users/Chris/Zotero/storage/JZG9W5BD/James et al. -
+    \verb  2013 - An Introduction to Statistical Learning.pdf:application/pdf
+    \endverb
+    \field{year}{2013}
+    \field{urlday}{30}
+    \field{urlmonth}{11}
+    \field{urlyear}{2022}
+  \endentry
+
+  \entry{austin2009relative}{article}{}
+    \name{author}{1}{}{%
+      {{hash=APC}{%
+         family={Austin},
+         familyi={A\bibinitperiod},
+         given={Peter\bibnamedelima C},
+         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Sage Publications Sage CA: Los Angeles, CA}%
+    }
+    \strng{namehash}{APC1}
+    \strng{fullhash}{APC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{6}
+    \field{pages}{661\bibrangedash 677}
+    \field{title}{The relative ability of different propensity score methods to
+  balance measured covariates between treated and untreated subjects in
+  observational studies}
+    \field{volume}{29}
+    \field{journaltitle}{Medical decision making}
+    \field{year}{2009}
+  \endentry
+
+  \entry{garrido2014methods}{article}{}
+    \name{author}{7}{}{%
+      {{hash=GMM}{%
+         family={Garrido},
+         familyi={G\bibinitperiod},
+         given={Melissa\bibnamedelima M},
+         giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=KAS}{%
+         family={Kelley},
+         familyi={K\bibinitperiod},
+         given={Amy\bibnamedelima S},
+         giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=PJ}{%
+         family={Paris},
+         familyi={P\bibinitperiod},
+         given={Julia},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=RK}{%
+         family={Roza},
+         familyi={R\bibinitperiod},
+         given={Katherine},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=MDE}{%
+         family={Meier},
+         familyi={M\bibinitperiod},
+         given={Diane\bibnamedelima E},
+         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=MRS}{%
+         family={Morrison},
+         familyi={M\bibinitperiod},
+         given={R\bibnamedelima Sean},
+         giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=AMD}{%
+         family={Aldridge},
+         familyi={A\bibinitperiod},
+         given={Melissa\bibnamedelima D},
+         giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wiley Online Library}%
+    }
+    \strng{namehash}{GMM+1}
+    \strng{fullhash}{GMMKASPJRKMDEMRSAMD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{5}
+    \field{pages}{1701\bibrangedash 1720}
+    \field{title}{Methods for constructing and assessing propensity scores}
+    \field{volume}{49}
+    \field{journaltitle}{Health services research}
+    \field{year}{2014}
+  \endentry
+
+  \entry{austin2014comparison}{article}{}
+    \name{author}{1}{}{%
+      {{hash=APC}{%
+         family={Austin},
+         familyi={A\bibinitperiod},
+         given={Peter\bibnamedelima C},
+         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wiley Online Library}%
+    }
+    \strng{namehash}{APC1}
+    \strng{fullhash}{APC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{6}
+    \field{pages}{1057\bibrangedash 1069}
+    \field{title}{A comparison of 12 algorithms for matching on the propensity
+  score}
+    \field{volume}{33}
+    \field{journaltitle}{Statistics in medicine}
+    \field{year}{2014}
+  \endentry
+
+  \entry{matchitpackage}{article}{}
+    \name{author}{4}{}{%
+      {{hash=HDE}{%
+         family={Ho},
+         familyi={H\bibinitperiod},
+         given={Daniel\bibnamedelima E.},
+         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=IK}{%
+         family={Imai},
+         familyi={I\bibinitperiod},
+         given={Kosuke},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=KG}{%
+         family={King},
+         familyi={K\bibinitperiod},
+         given={Gary},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SEA}{%
+         family={Stuart},
+         familyi={S\bibinitperiod},
+         given={Elizabeth\bibnamedelima A.},
+         giveni={E\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HDE+1}
+    \strng{fullhash}{HDEIKKGSEA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.18637/jss.v042.i08
+    \endverb
+    \field{number}{8}
+    \field{pages}{1\bibrangedash 28}
+    \field{title}{{MatchIt}: Nonparametric Preprocessing for Parametric Causal
+  Inference}
+    \field{volume}{42}
+    \field{journaltitle}{Journal of Statistical Software}
+    \field{year}{2011}
+  \endentry
+\enddatalist
+\endinput

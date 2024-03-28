@@ -1,15 +1,19 @@
-##---------------------------------------------------
-###   RESULT-GENERATING AND OTHER HELPER FUNCTIONS
-###---------------------------------------------------
+##---------------------------------------------------------
+###   RESULT-GENERATING AND OTHER HELPER/INTERNAL FUNCTIONS
+###--------------------------------------------------------
 
 
-########## %notin% operator #########
+### %notin% operator ###
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 `%notin%` <- Negate( `%in%` )
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 ####################################################################################################
 #################################### Quantile Cutting Function #####################################
 ####################################################################################################
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 quant_cut<-function(var,x,df){
   
   xvec<-vector() # initialize null vector to store
@@ -31,10 +35,14 @@ quant_cut<-function(var,x,df){
   return(df[['new']])
 }
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 ####################################################################################################
 #################################### Trend Variable Function #######################################
 ####################################################################################################
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 trend_func<-function(rank.var,cont.var,df,trend.var,x){
   
@@ -54,14 +62,14 @@ trend_func<-function(rank.var,cont.var,df,trend.var,x){
   
   return(df)
 }
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 ####################################################################################################
 ################################### Spline Plotting Function #######################################
 ####################################################################################################
-
-
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 hr_splines <- function( dat, x, time, mort.ind, knots, 
                         covariates, wts = NULL, referent = "median", xlab, ylab, 
@@ -99,7 +107,7 @@ hr_splines <- function( dat, x, time, mort.ind, knots,
   
   # formula
   f1 <- paste0( "Surv( ", time, ", ", mort.ind, " ) ~ rcs( x, ", knots, 
-                " ) + ", paste0( covariates, collapse = " + " ), "+ cluster( sdmvpsu )" )
+                " )", {if( !is.null( covariates ) ) "+"}, paste0( covariates, collapse = " + " ), "+ cluster( sdmvpsu )" )
   
   # normalize the weights
   if ( !is.null( wts ) ) df2 <- df2 %>% mutate( n.wts = get( wts ) / mean( get( wts ), na.rm = T ) )
@@ -137,16 +145,17 @@ hr_splines <- function( dat, x, time, mort.ind, knots,
   
   return( sp.plot )
 }
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 ####################################################################################################
-####################################### Results Function ###########################################
+################################ Results Function (For Survival Analysis) ##########################
 ####################################################################################################
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name, scale.y,
-                 int.knots ){
+                 int.knots, model.name ){
   
   require( tidyverse )
   require( glue )
@@ -181,20 +190,20 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
   ## Fit Models ##
   
   # quantile specification
-  m.q <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( x, ".q" ), " + ", paste0( covars, collapse = " + ") ) ),
+  m.q <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( x, ".q" ), {if( !is.null( covars ) ) "+"}, paste0( covars, collapse = " + ") ) ),
                    design = des )
   
   sum.m.q <- summary( m.q )$coefficients %>% data.frame()
   ci.m.q <- confint( m.q )
   
   # trend test
-  m.t <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( x, ".trend" ), " + ", paste0( covars, collapse = " + ") ) ),
+  m.t <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( x, ".trend" ), {if( !is.null( covars ) ) "+"}, paste0( covars, collapse = " + ") ) ),
                    design = des )
   
   sum.m.t <- summary( m.t )$coefficients %>% data.frame()
   
   # linear specification
-  m.l <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( "I( ", x, "/", x.scale, ") + " ), paste0( covars, collapse = " + ") ) ),
+  m.l <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( "I( ", x, "/", x.scale, ")", {if( !is.null( covars ) ) "+"} ), paste0( covars, collapse = " + ") ) ),
                    design = des )
   
   sum.m.l <- summary( m.l )$coefficients %>% data.frame()
@@ -206,7 +215,7 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
   
   # natural cubic spline 
   # degrees of freedom are the no. of interior knots + 2 (also the no. of basis functions required)--(see "Elements of Statistical Learning" by Hastie, Tibshirani and Friedman and https://stats.stackexchange.com/questions/490306/natural-splines-degrees-of-freedom and https://stats.stackexchange.com/questions/7316/setting-knots-in-natural-cubic-splines-in-r) (also note that when we specify df = 4 we assume three interior knots and 2 boundary knots--this syntax does not include the basis function for the intercept in the count)
-  m.cs <- svycoxph( formula( paste0( "Surv(", time, ",",mort.ind," ) ~ ", paste0( "ns(", x,", df =", ( int.knots + 1 )," ) +" ), 
+  m.cs <- svycoxph( formula( paste0( "Surv(", time, ",", mort.ind," ) ~ ", paste0( "ns(", x,", df =", ( int.knots + 1 )," )", {if( !is.null( covars ) ) "+"} ), 
                                      paste0( covars, collapse = " + ") ) ),
                     design = des )
   
@@ -214,6 +223,7 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
   # Non-linearity Likelihood-Ratio test
   p.nl <- pchisq( abs( m.l$ll[2] -  m.cs$ll[2] ),
                   df = m.l$degf.resid - m.cs$degf.resid, lower.tail = FALSE )
+
   
   ## Generate Table ##
   
@@ -302,10 +312,13 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
   res.frame <- res.frame %>%
     relocate( n, .before = Q1 )
   
-  # add subsample name to table
+  # add subsample and model names to table
   res.frame$sample <- sample.name
+  res.frame$model <- model.name
   res.frame <- res.frame %>%
-    relocate( sample, .before = n )
+    relocate( sample, .before = n ) %>%
+    relocate( model, .after = sample )
+    
   
   ## Significant digits ##
   
@@ -324,7 +337,7 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
     res.frame[,i] <- str_replace( res.frame[,i], "(\\,\\s\\d)\\)", "\\1.00\\)") # match comma, space, digit, close parenthesis. Retain everything except parenthesis and add ".00)" to end
     res.frame[,i] <- str_replace( res.frame[,i], "(\\(\\d\\.\\d)\\-", "\\10\\-") # open parenthesis, digit, period, digit, hypen. Retain everything except hyphen and add "0)" to end
     res.frame[,i] <- str_replace( res.frame[,i], "(\\-\\d)\\)", "\\1.00\\)") # match hyphen, digit, close parenthesis. Retain everything except parenthesis and add ".00)" to end
-    res.frame[,i] <- str_replace( res.frame[,i], "(\\(\\d)\\-", "\\1.00\\)") # match hyphen, digit, close parenthesis. Retain everything except parenthesis and add ".00)" to end
+    res.frame[,i] <- str_replace( res.frame[,i], "(\\(\\d)\\-", "\\1.00\\-") # match hyphen, digit, close parenthesis. Retain everything except parenthesis and add ".00)" to end
   }
   
   # column indices for columns containing p values 
@@ -339,7 +352,8 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
   ## Spline plot ##
   
   
-  spline.plot <- hr_splines(  dat =  d.1 %>% select(  -permth_exm ), 
+  spline.plot <- hr_splines(  dat =  des$variables
+                              %>% select(  -permth_exm ), 
                x =  x, 
                time =  time, 
                mort.ind =  mort.ind, 
@@ -359,12 +373,14 @@ res <- function( df, x, subs, cuts, id.col, covars, time, mort.ind, sample.name,
 
 # res( df = d, x = "fs_enet", subs = "inc == 1", cuts = 5, id.col = "seqn", covars = covars.logit, time = "stime", mort.ind = "mortstat")
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 ####################################################################################################
 ################################# Table 1 (Categorical Variables) ##################################
 ####################################################################################################
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 epitab <- function(var,data.fr,des,table.var){
   
@@ -402,11 +418,14 @@ epitab <- function(var,data.fr,des,table.var){
   
 }
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 ####################################################################################################
 ################################## Table 1 (Continuous Variables) ##################################
 ####################################################################################################
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 epitab.means <- function(cont.var, des, table.var, dig){ 
   # dig is the number of digits to round to
@@ -420,12 +439,14 @@ epitab.means <- function(cont.var, des, table.var, dig){
   return(ms2)
 }
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 ####################################################################################################
 ################################## Survey-Weighted Cohen's D ######################################
 ####################################################################################################
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 svycd <- function( x, design.1, design.2, ... ){
   
@@ -463,3 +484,219 @@ svycd <- function( x, design.1, design.2, ... ){
 
 # example
 # svycd( x = "fs_enet", design.1 = fiw, design.2 = fsw)
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+####################################################################################################
+######################### Residual Method for Total Calorie Adjustment #############################
+####################################################################################################
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Helper function #
+
+svy_residual_bind <- function( x, design, cal ) {
+  # x = a character string; the column name of the nutrient of interest
+  # cal = a character string; the column name for the calories column
+  # design = a `svydesign` object
+  # dependencies: `survey`
+  
+  # working dataset
+  dat <- design$variables
+  
+  # regress nutrients on calories
+  mod <- svyglm( formula = formula( paste0( x," ~ ", cal ) ), 
+                 family=stats::gaussian(),
+                 design = design )
+  
+  # extract residuals
+  step.1.residuals <- mod$residuals
+  
+  
+  ## add arbitrary constant value since residuals have mean 0 ##
+  
+  # will add the predicted value for the mean value of calories in the dataset
+  step.2.residuals <- data.frame( step.1.residuals + ( mod$coefficients[1] + mod$coefficients[2]*mean( dat[[ cal ]], na.rm = T ) ) )
+  colnames( step.2.residuals ) <- "x.adjusted"
+  
+  # create rowid column based on rownames of the model matrix (will be used for faithful merging)
+  step.2.residuals <- step.2.residuals %>%
+    mutate( rowid = rownames( mod$model ) )  # label residuals by their rowid
+  
+  # join residuals to original dataframe using rowid (this ensure missings are set to missing accordingly)
+  dat <- dat %>%
+    mutate( rowid = rownames( dat ) ) %>%
+    left_join( step.2.residuals, by = "rowid" )
+  
+  return( dat %>% select( rowid, x.adjusted ) )
+}
+
+
+# Main function #
+
+svy_energy_residual <- function( design, nutr, calories, overwrite = "no" ){
+  
+  # design = a `svydesign` object
+  # nutr = the nutrient/food group/ index score needing to be energy adjusted ( can be a single variable or 
+  # a vector of character strings with each item representing a different column)
+  # calories = a character vector (single column) indicating the column name for total calories
+  # df is a dataframe:
+  # overwrite = a "yes" or "no", depending on if use wants to overwrite previous versions of the columns and keep the
+  # same column names. Default is "no". if "no" is selected, the program generates two new columns with ".adj" appended to the old column names
+  # RETURN: this function returns a dataframe with the energy adjusted variables appended to the end of the
+  # frame and named by pasting their original name with ".adj" at the end of the string or the original column names.
+  
+  ## checks ##
+  
+  if( overwrite %notin% c( "yes", "no" ) ) stop( '`overwrite` must be one of "yes" or "no"')
+  
+  ## working data ##
+  
+  dat <- design$variables
+  
+  ## regress diet index scores on total energy and extract residuals ##
+  
+  
+  # loop and bind residuals for all "x" variables
+  dat.list <- list()
+  for( i in 1: length( nutr ) ) {
+    
+    h <- svy_residual_bind( x = nutr[i], design = design, cal = calories ) 
+    
+    if( overwrite == "no" ){
+      
+      dat.list[[i]] <- h %>%
+        rename( !!paste0( nutr[i], ".adj" ) := x.adjusted ) # rename column according to input variable names
+    }
+    
+    else if( overwrite == "yes" ){
+      
+      dat.list[[i]] <- h %>%
+        rename( !!paste0( nutr[i] ) := x.adjusted )
+    }
+    
+  }
+  
+  ## bind columns and produce final data output ##
+  
+  if( overwrite == "no" ){
+    dat <- dat %>% mutate( rowid = rownames( dat ) )  # create a rowid column for merge
+  }
+  
+  else if( overwrite == "yes" ){
+    dat <- dat %>% mutate( rowid = rownames( dat ) ) %>%  # create a rowid column for merge
+      select (- nutr ) # remove old old columns of the x variables if they are to be overwritten
+  }
+  
+  out.dat <- dat.list %>% reduce( inner_join, by = "rowid" ) %>%  # inner_join all elements of the list
+    data.frame() %>%
+    left_join( dat, ., by = "rowid" ) %>%
+    select( -rowid )
+  
+  return( out.dat )
+  
+}
+
+# Example:
+# d.8 <- svy_energy_residual( nutr = "nar.b6", 
+#                      design = des.1, 
+#                      calories = "kcal",
+#                      overwrite = "no" )
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+####################################################################################################
+################################## Dietary Patterns: Penalized Logit ######################################
+####################################################################################################
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+enet_pat <- function( xmat, yvec, wts, plot.title, seed = 28 ){
+  
+  # performs penalized logistic regression with the elastic net penalty
+  
+  # xmat = the x matrix with columns being the features and rows the observations
+  # yvec = the y vector. must be of the same length as the number of rows of `xmat`
+  # wts = the weights vector. must be the same length as `yvec`
+  # seed = seed set for reproducibility. a default value is provided
+  
+  colorss <- c( "black", "red", "green3", "navyblue",   "cyan",   "magenta", "gold", "gray",
+                'pink', 'brown', 'goldenrod' ) # colors for plot
+  
+  # initialize lists to store outputs
+  store <- list( )
+  coefsdt <- list( )
+  
+  alpha.grid <- seq( 0, 1, 0.1 ) # range of alpha values for tuning grid
+  
+  for ( i in 1:length( alpha.grid ) ){ # set the grid of alpha values
+    
+    set.seed( seed ) # seed to reproduce results
+    
+    # call glmnet with 10-fold cv
+    enetr <- cv.glmnet( x = xmat, y = yvec, family = 'binomial', weights = wts,
+                        nfold = 10, alpha = alpha.grid[ i ] )
+    
+    # bind values of lambda to cross validation error
+    evm <- data.frame( cbind( enetr$lambda, enetr$cvm ) )
+    colnames( evm ) <- c( 'lambda', 'av.error' )
+    
+    # now create a list that stores each coefficients matrix for each value of alpha
+    # at the lambda minimizer
+    coefsdt[[ i ]] <- list( alpha = paste0( alpha.grid )[ i ], 
+                            coefs = coef( enetr, s = "lambda.min" ) )
+    
+    # create a dataframe that houses the alpha, min lambda, and average error
+    resdf <- data.frame( alpha = alpha.grid[ i ], 
+                         evm[ which( evm$av.error == min( evm$av.error ) ), 'lambda' ],
+                         av.error = evm[ which( evm$av.error == min( evm$av.error ) ), 'av.error' ] )
+    colnames( resdf ) <- c( 'alpha', 'lambda', 'av.error' )
+    
+    store[[ i ]] <- resdf
+    
+    ## generate plot ##
+    
+    if ( i == 1 ){ # for the first value of 'i'
+      plot( x = enetr$lambda, y = enetr$cvm, type ='l', 
+            ylim = c( min( enetr$cvm ) - 0.02, max( enetr$cvm ) - 0.02 ),
+            xlim = c( min( evm$lambda ), ( resdf$lambda*1.05 ) ), 
+            las = 0, 
+            cex.axis = 0.7 )
+    }
+    else if ( i != 1 ){ # each additional line will be superimposed on the plot with a different color
+      lines( x = enetr$lambda, 
+             y = enetr$cvm, 
+             col = colorss[ i ] )
+    }
+  }
+  
+  ## superimpose intersecting lines at the minimizer ## 
+  cverr <- do.call( 'rbind', store ) # this gives the table of errors for each combination of alpha and lambda
+  abline( h = cverr[ which( cverr$av.error == min( cverr$av.error ) ), 'av.error' ],
+          lty = 2 )
+  abline( v = cverr[ which( cverr$av.error == min( cverr$av.error ) ), 'lambda' ],
+          lty = 2 )
+  
+  
+  ## add optimal lambda and alpha values to plot title ## 
+  optimall <- cverr[ which( cverr$av.error == min( cverr$av.error ) ), ] # here I extract the optimal combination of
+  
+  # lambda and alpha
+  optlam <- signif( optimall[ 2 ], 2 )
+  opta <- optimall[ 1 ]
+  title( main = TeX( paste0( plot.title, ' ( $\\lambda_{optimal} =$', optlam, ' and $\\alpha_{optimal} =$', opta, ' )' ) ),
+         cex.main = 0.8,
+         cex.lab = 0.8,
+         xlab = TeX( '$\\lambda$' ), 
+         mgp = c( 2, 1, 0 ),
+         ylab ='Deviance', mgp = c( 2, 1, 0 ) )
+  
+  
+  
+  # the function returns the optimal lambda alpha combo and the set of coefficients that 
+  # correspond to that combination of parameters
+  return( list( optimall, coefs = as.matrix( coefsdt[[ which( alpha.grid == optimall$alpha ) ]]$coefs )[ -1, ] ) )
+}
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
